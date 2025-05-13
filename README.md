@@ -4,6 +4,8 @@
 
 This project contains demo code to deploy a personal assistant capable to extract and store personal invoices and receipts, store it in databases, and provide search capabilities. It built as two services, frontend using Gradio and backend services using FastAPI. It utilize Google ADK as the agent framework, Gemini 2.5 Flash as the language model, Firestore as the database, and Google Cloud Storage as the storage. It also display how we can leverage Gemini 2.5 Flash thinking process in the UI
 
+Want a detailed tutorial about this? Visit this Codelab: [https://codelabs.developers.google.com/personal-expense-assistant-multimodal-adk](https://codelabs.developers.google.com/personal-expense-assistant-multimodal-adk?utm_campaign=CDR_0x6a71b73a_default_b404145037&utm_medium=external&utm_source=blog)
+
 ## Prerequisites
 
 - If you are executing this project from your personal IDE, Login to Gcloud using CLI with the following command :
