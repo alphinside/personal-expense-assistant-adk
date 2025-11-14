@@ -23,7 +23,6 @@ from typing import AsyncIterator
 from types import SimpleNamespace
 import uvicorn
 from contextlib import asynccontextmanager
-import asyncio
 from utils import (
     extract_attachment_ids_and_sanitize_response,
     download_image_from_gcs,
@@ -89,8 +88,7 @@ async def chat(
     """Process chat request and get response from the agent"""
 
     # Prepare the user's message in ADK format and store image artifacts
-    content = await asyncio.to_thread(
-        format_user_request_to_adk_content_and_store_artifacts,
+    content = await format_user_request_to_adk_content_and_store_artifacts(
         request=request,
         app_name=APP_NAME,
         artifact_service=app_context.artifact_service,
@@ -103,10 +101,10 @@ async def chat(
     user_id = request.user_id
 
     # Create session if it doesn't exist
-    if not app_context.session_service.get_session(
+    if not await app_context.session_service.get_session(
         app_name=APP_NAME, user_id=user_id, session_id=session_id
     ):
-        app_context.session_service.create_session(
+        await app_context.session_service.create_session(
             app_name=APP_NAME, user_id=user_id, session_id=session_id
         )
 
@@ -143,8 +141,7 @@ async def chat(
         # Download images from GCS and replace hash IDs with base64 data
         for image_hash_id in attachment_ids:
             # Download image data and get MIME type
-            result = await asyncio.to_thread(
-                download_image_from_gcs,
+            result = await download_image_from_gcs(
                 artifact_service=app_context.artifact_service,
                 image_hash=image_hash_id,
                 app_name=APP_NAME,

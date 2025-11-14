@@ -40,7 +40,7 @@ with open(prompt_path, "r") as file:
 
 root_agent = Agent(
     name="expense_manager_agent",
-    model="gemini-2.5-flash-preview-04-17",
+    model="gemini-2.5-flash",
     description=(
         "Personal expense agent to help user track expenses, analyze receipts, and manage their financial records"
     ),
